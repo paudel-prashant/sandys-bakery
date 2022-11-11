@@ -1,0 +1,190 @@
+﻿
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+body {
+    font-family: 'Raleway','Lato', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    margin-top: 54px;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: calc(100vh - 55px);
+    z-index: 999;
+    padding: 10px;
+    -webkit-transition: right .5s ease,left .5s ease;
+    -moz-transition: right .5s ease,left .5s ease;
+    -o-transition: right .5s ease,left .5s ease;
+    transition: right .5s ease,left .5s ease;
+    right: auto;
+    left: 0;
+}
+
+    #sidebar.active {
+        /*margin-left: -250px;*/
+        left: -250px;
+    }
+
+#content {
+    margin-top: 70px;
+    width: calc(100% - 250px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: all 0.3s;
+}
+
+    #content.active {
+        width: 100%;
+    }
+
+.list-group-item:first-child {
+    border-radius: 0;
+}
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    margin-right: .5rem;
+}
+
+.media-body {
+    flex: 1;
+}
+
+.wrapper#page-footer {
+    flex-shrink: 0;
+}
+
+footer {
+    bottom: 0;
+    right: 0;
+}
+
+[data-action=toggle-drawer] .icon {
+    margin: 0;
+}
+
+/*#page-footer.active {
+
+    width: 100%;
+}*/
+
+body.drawer-ease {
+    -webkit-transition: margin-left .5s ease,margin-right .5s ease;
+    -moz-transition: margin-left .5s ease,margin-right .5s ease;
+    -o-transition: margin-left .5s ease,margin-right .5s ease;
+    transition: margin-left .5s ease,margin-right .5s ease;
+}
+
+.form-control {
+    display: inline-block;
+    border-radius: 0px;
+    padding: 5px 10px;
+    line-height: 1.5;
+}
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: #f6f8f9;
+        opacity: 1;
+    }
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+    color: #0a0a0a;
+    text-align: left;
+    display: block;
+    font-family: "Raleway";
+}
+
+p a {
+    font-family: "Raleway";
+}
+
+* {
+    font-family: "Raleway","Lato", sans-serif;
+}
+
+.field-validation-error {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+}
+
+.card-body textarea {
+    width: 100%;
+    box-sizing: border-box; /* For IE and modern versions of Chrome */
+    -moz-box-sizing: border-box; /* For Firefox                          */
+    -webkit-box-sizing: border-box;
+}
