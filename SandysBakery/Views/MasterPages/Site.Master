@@ -1,0 +1,230 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SandysBakery.Views.MasterPages.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sandy's Bakery</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+        <%: Scripts.Render("~/bundles/Global") %>
+        <%: Styles.Render("~/Content/Global") %>
+    </asp:PlaceHolder>
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" runat="server" href="~/Views/Home.aspx">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Sandy's Bakery</div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+                
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/Home.aspx">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/Feedbacks.aspx">
+                        <i class="fas fa-comment"></i>
+                        <span>Feedback</span></a>
+                </li>
+
+                <%var usersLogin = Session["UsersLogin"] as SandysBakery.BusinessLogic.UsersLogin;
+                            if (usersLogin == null)
+                            {
+                                usersLogin = new SandysBakery.BusinessLogic.UsersLogin();
+                            }
+                            if (usersLogin.RoleName == "User")
+                            {
+                %>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-caret-square-down"></i>
+                        <span>Product Categories</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <%
+                                SandysBakery.DataAccess.Services.IAdministrator administrator = new SandysBakery.DataAccess.Services.Administrator();
+                                System.Data.DataTable dataTable = administrator.ProductCategoriesList();
+                                List<SandysBakery.BusinessLogic.ProductCategories> productCategories = new SandysBakery.DataAccess.Adaptors.Helper().DataTableToListof<SandysBakery.BusinessLogic.ProductCategories>(dataTable);
+                                foreach (var item in productCategories)
+                                {
+                            %>
+                            <a href="\Views/Home.aspx?CategoryId=<%=item.ProductCategoriesId %>" class="collapse-item"><%=item.CategoryName %></a>
+                            <% } %>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/User/UserDetails.aspx">
+                        <i class="fas fa-info-circle"></i>
+                        <span>User Details</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/User/UserOrders.aspx">
+                        <i class="fas fa-envelope-open"></i>
+                        <span>Ordered Items</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/User/UserPaymentOptions.aspx">
+                        <i class="fab fa-amazon-pay"></i>
+                        <span>Payment Options</span>
+                    </a>
+                </li>
+
+                <%} %>
+
+                <%var hideSignIn = Session["UsersLogin"] as SandysBakery.BusinessLogic.UsersLogin;
+                            if (usersLogin == null)
+                            {
+                                usersLogin = new SandysBakery.BusinessLogic.UsersLogin();
+                            }
+                            if (usersLogin.RoleName != "User")
+                            {
+                %>
+
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Views/User/UserLogin.aspx">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Sign In</span></a>
+                </li>
+                <%} %>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+                <!-- Sidebar Toggler (Sidebar) -->
+                <!-- <div class="text-center d-none d-md-inline">
+                    <button type="button" class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div> -->
+
+            </ul>
+            
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <%var hideCartLogOff = Session["UsersLogin"] as SandysBakery.BusinessLogic.UsersLogin;
+                                if (usersLogin == null)
+                                {
+                                    usersLogin = new SandysBakery.BusinessLogic.UsersLogin();
+                                }
+                                if (usersLogin.RoleName == "User")
+                                {
+                            %>
+                            <li class="nav-item">
+                                <a class="nav-link" runat="server" href="~/Views/User/CartItems.aspx">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Cart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" runat="server" href="~/Views/Logout.aspx">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Log Off</span>
+                                </a>
+                            </li>
+                            <%} %>   
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+                            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                        <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright &copy; Sandy's Bakery 2020</span>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- End of Footer -->
+
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+
+    </form>
+    <style>
+        .topbar.navbar-light .navbar-nav .nav-item .nav-link {
+            color: black;
+        }
+    </style>
+</body>
+</html>
